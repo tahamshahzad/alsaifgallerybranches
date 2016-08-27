@@ -1,8 +1,5 @@
 
 var currentYPos = null;
-var locationPoints = {
-  coordinates : {},
-};
 var mainContent = {
     jsonData: contentData,
     childSelected: null,
@@ -53,7 +50,7 @@ mainContent.viewableContent = function(cityDataJson) {
         contentString += areaString;
     }
     return contentString;
-}
+};
 
 var cityNavigate = {
     areaBtn: [].slice.call(document.querySelectorAll(".area_list")[0].children),
@@ -140,6 +137,24 @@ var scrollUpBtn = {
     }
 };
 
+
+
+function initWindowScrollEvent() {
+    window.addEventListener("scroll", function() {
+        scrollUpBtn.btnShowFunction();
+        mainContent.bringBackNormalColor();
+    });
+};
+
+window.onload = function() {
+    if (location.hash != "") {
+        cityNavigate.branchSelect({
+            hash: location.hash
+        });
+    }
+};
+
+
 $(function() {
     $('a[href*="#"]:not([href="#"])').click(function() {
         if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
@@ -148,31 +163,17 @@ $(function() {
             if (target.length) {
                 $('html, body').animate({
                     scrollTop: target.offset().top
-                }, scrollTiming(500));
+                }, scrollTiming(500) );
                 return false;
             }
         }
     });
 });
 
-function initWindowScrollEvent() {
-    window.addEventListener("scroll", function() {
-        scrollUpBtn.btnShowFunction();
-        mainContent.bringBackNormalColor();
-    });
+function scrollTiming(penetrate) {
+    window.scrollY * (penetrate / (document.body.scrollHeight - document.body.clientHeight));
 }
 
-window.onload = function() {
-    if (location.hash != "") {
-        cityNavigate.branchSelect({
-            hash: location.hash
-        });
-    }
-}
-
-var scrollTiming = function(penetrate) {
-    return window.scrollY * (penetrate / (document.body.scrollHeight - document.body.clientHeight));
-}
 
 function changeHeader(value) {
     window.location.href = value;
