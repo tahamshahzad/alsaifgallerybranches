@@ -1,0 +1,78 @@
+@font-face {
+    font-family: flat-jooza;
+    src: url('../fonts/flat-jooza-regular.ttf');
+}
+body * {
+  font-family: flat-jooza;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.margin_auto_center {
+  margin:0 auto;
+}
+.all_zero {
+  margin:0;
+  padding:0;
+}
+.strech_wdt_hit {
+    height:100%;
+    width:100%;
+}
+.strech_wdt  {
+  width:100%;
+}
+.strech_hit {
+  height:100%;
+}
+.float_r {
+  float:right;
+}
+.float_l {
+  float:left;
+}
+.text_c {
+  text-align: center;
+}
+.text_r {
+text-align: right;
+}
+.text_l {
+  text-align:left;
+}
+.disp_blck {
+  display:block;
+}
+
+.disp_inline {
+  display:inline;
+}
+.display_inl_blk {
+  display:inline-block;
+}
+.flx_cnt {
+  display:flex;
+}
+.flx_itm_c_m {
+  justify-content: center;
+  align-items: center;
+}
+.flx_itm_e {
+  justify-content: flex-end;
+}
+.flx_itm_s_b {
+  justify-content: space-between;
+}
+.font_weight_300 {
+    font-weight: 300;
+}
+.font_weight_400 {
+    font-weight: 400;
+}
+.font_weight_500 {
+    font-weight: 500;
+}
