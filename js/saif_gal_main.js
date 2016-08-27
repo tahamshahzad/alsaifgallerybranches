@@ -2,7 +2,12 @@ var currentYPos = null;
 
 
 locationData = {
+  nearestBranch : null,
   userCoordinates : null,
+  showNearBranch : function () {
+    var branch = document.querySelector('[data-coordinates="'+this.nearestBranch[2]+'"]');
+    alert(branch.children[0].innerHTML);
+  },
   getHandler : function() {
     var ele = document.querySelector(".nearestBranchHandler");
     ele.addEventListener("click", function() {
@@ -16,19 +21,42 @@ locationData = {
     }
   },
   successCallBack : function (position){
-    locationData.calculateNearestBranch(position, locationData.userCoordinates);
+    locationData.calculateNearestBranch(position, locationData.coordinates);
   },
   calculateNearestBranch : function (locationObject, coordinatesArray) {
     this.userCoordinates = locationObject;
-    alert(this.userCoordinates.coords.latitude+","+this.userCoordinates.coords.longitude);   
-
+    var userLat = this.userCoordinates.coords.latitude;
+    var userLong = this.userCoordinates.coords.longitude;
+    var arrayLat;
+    var arrayLong;
+    var latDistance;
+    var longDistance;
+    var branchDistance;
+    var distanceArray = [];
+    var smallestVal;
+    coordinatesArray.forEach(function (currentValue, index, arr) {
+      arrayLat = currentValue[0];
+      arrayLong = currentValue[1];
+      latDistance = arrayLat-userLat;
+      longDistance = arrayLong-userLong;
+      branchDistance = Math.sqrt(latDistance*latDistance) + (longDistance*longDistance);
+      if (index == 0) {
+        smallestVal = [branchDistance, index, arrayLat+","+arrayLong];
+      }
+      else {
+        if (branchDistance < smallestVal[0]) {
+          smallestVal = [branchDistance, index, arrayLat+","+arrayLong];
+        }
+      }
+    });
+    this.nearestBranch = smallestVal;
+    locationData.showNearBranch();
   }
 };
 
 
 
 var mainContent = {
-
     jsonData: contentData,
     childSelected: null,
     container: document.querySelector(".content_container"),
@@ -62,15 +90,15 @@ mainContent.viewableContent = function(cityDataJson) {
                 var lat = cityDataJson[area][city]["branches"][branch].lat;
                 var long = cityDataJson[area][city]["branches"][branch].long;
                 var index = branch;
-                branchString += '<div class="city_branch_container" data-coordinates ="'+lat+','+long+'">'+
+                branchString += '<div class="city_branch_container" data-coordinates="'+lat+','+long+'">'+
                      '<h3 class="branch_content_name all_zero font_weight_300">' + cityName + '</h3>' +
                     '<h3 class="branch_content_add all_zero font_weight_300">' + add + '</h3>' +
                     '<h3 class="branch_content_phone all_zero font_weight_300 ">' +
                     '<a class="brach_content_call_link" href="tel:' + phone + '" dir="ltr">' + phone + '</a>' +
-                    '</h3>' +
+                    '</h3>'+
                     '</div>';
+              locationData.coordinates.push([lat,long]);
 
-            locationData.coordinates.push([lat,long]);
             }
             titleString += '<div class="city_branch_container_wrapper ">' + branchString + '</div>';
             var innerString = '<div class="city_branch_outer_container" id="' + city + '">' + titleString + '</div>';
