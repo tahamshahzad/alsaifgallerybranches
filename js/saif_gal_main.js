@@ -19,7 +19,8 @@ locationData = {
     locationData.calculateNearestBranch(position, locationData.userCoordinates);
   },
   calculateNearestBranch : function (locationObject, coordinatesArray) {
-    this.userCoordinates = locationObject;   
+    this.userCoordinates = locationObject;
+    alert(this.userCoordinates.coords.latitude+","+this.userCoordinates.coords.longitude);   
 
   }
 };
