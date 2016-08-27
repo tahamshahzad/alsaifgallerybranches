@@ -3,15 +3,18 @@ var currentYPos = null;
 
 locationData = {
   getHandler : function() {
-    var ele = docuemnt.querySelector(".nearestBranchHandler");
+    var ele = document.querySelector(".nearestBranchHandler");
     ele.addEventListener("click", function() {
+
       locationData.calculateNearestBranch(locationData.getUserPosition, locationData.coordinates);
+
     });
   },
   coordinates : [],
   getUserPosition : function () {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(function (position){
+          
           return [position.coordinates.latitude , position.coordinates.longitude];
       }, function () {
         console.log("some problem occured");
@@ -213,4 +216,5 @@ function changeHeader(value) {
     mainContent.container.insertAdjacentHTML("beforeend", mainContent.viewableContent(mainContent.jsonData));
     initWindowScrollEvent();
     cityNavigate.areaBtnClickEv(cityNavigate.areaBtnClickFunc);
+    locationData.getHandler();
 })();
