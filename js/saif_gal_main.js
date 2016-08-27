@@ -1,5 +1,14 @@
-
 var currentYPos = null;
+
+if (navigator.geolocation) {
+  navigator.geolocation.getCurrentPosition(function (position) {
+    alert(position.coords.latitude);
+  });
+}
+else {
+  console.log('Geolocation is not supported for this Browser/OS version yet.');
+}
+
 var mainContent = {
     jsonData: contentData,
     childSelected: null,
