@@ -1,17 +1,35 @@
 var currentYPos = null;
 //test area
-function testMaps() {
-if (navigator.geolocation) {
-  navigator.geolocation.getCurrentPosition(function (position) {
-    window.location.href = "https://www.google.com.sa/maps/@"+position.coords.latitude+','+position.coords.longitude+"15z";
-  });
-}
-else {
-  console.log('Geolocation is not supported for this Browser/OS version yet.');
-}
-}
+
+locationData = {
+  getHandler : function() {
+    var ele = docuemnt.querySelector("#nearestBranchHandler");
+    ele.addEventListener("click", function() {
+      locationData.calculateNearestBranch(locationData.getUserPosition, locationData.coordinates);
+    });
+  },
+  coordinates : [],
+  getUserPosition : function () {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(function (position){
+          return [position.coordinates.latitude , position.coordinates.longitude];
+      }, function () {
+        console.log("some problem occured");
+      }, {
+        enableHighAccuracy: true
+      });
+    }
+  },
+  calculateNearestBranch : function (userLocationCallBack, coordinatesArray) {
+    var userLocation = userLocationCallBack();
+    alert(userLocation);
+  }
+};
+
+
 //end of test area
 var mainContent = {
+
     jsonData: contentData,
     childSelected: null,
     container: document.querySelector(".content_container"),
@@ -45,7 +63,7 @@ mainContent.viewableContent = function(cityDataJson) {
                 var lat = cityDataJson[area][city]["branches"][branch].lat;
                 var long = cityDataJson[area][city]["branches"][branch].long;
                 var index = branch;
-                branchString += '<div class="city_branch_container" data-branch-index ="'+area+'_'+city+'_'+index+'">'+
+                branchString += '<div class="city_branch_container" data-coordinates ="'+lat+','+long+'">'+
                      '<h3 class="branch_content_name all_zero font_weight_300">' + cityName + '</h3>' +
                     '<h3 class="branch_content_add all_zero font_weight_300">' + add + '</h3>' +
                     '<h3 class="branch_content_phone all_zero font_weight_300 ">' +
@@ -53,6 +71,7 @@ mainContent.viewableContent = function(cityDataJson) {
                     '</h3>' +
                     '</div>';
 
+            locationData.coordinates.push([lat,long]);
             }
             titleString += '<div class="city_branch_container_wrapper ">' + branchString + '</div>';
             var innerString = '<div class="city_branch_outer_container" id="' + city + '">' + titleString + '</div>';
