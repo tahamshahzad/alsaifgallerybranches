@@ -1,5 +1,6 @@
 var currentYPos = null;
-
+//test area
+function testMaps() {
 if (navigator.geolocation) {
   navigator.geolocation.getCurrentPosition(function (position) {
     window.location.href = "https://www.google.com.sa/maps/@"+position.coords.latitude+','+position.coords.longitude+"15z";
@@ -8,7 +9,8 @@ if (navigator.geolocation) {
 else {
   console.log('Geolocation is not supported for this Browser/OS version yet.');
 }
-
+}
+//end of test area
 var mainContent = {
     jsonData: contentData,
     childSelected: null,
