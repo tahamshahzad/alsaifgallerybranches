@@ -14,8 +14,7 @@ locationData = {
   getUserPosition : function () {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(function (position){
-          
-          return [position.coordinates.latitude , position.coordinates.longitude];
+          alert(position.coordinates.latitude);
       }, function () {
         console.log("some problem occured");
       }, {
@@ -24,8 +23,7 @@ locationData = {
     }
   },
   calculateNearestBranch : function (userLocationCallBack, coordinatesArray) {
-    var userLocation = userLocationCallBack();
-    alert(userLocation);
+    userLocationCallBack();
   }
 };
 
