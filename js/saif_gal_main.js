@@ -2,7 +2,7 @@ var currentYPos = null;
 
 if (navigator.geolocation) {
   navigator.geolocation.getCurrentPosition(function (position) {
-    window.location.href = "https://www.google.com.sa/maps/"+position.coords.latitude+','+position.coords.longitude;
+    window.location.href = "https://www.google.com.sa/maps/@"+position.coords.latitude+','+position.coords.longitude+"15z";
   });
 }
 else {
