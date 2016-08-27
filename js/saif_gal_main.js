@@ -3,7 +3,7 @@ var currentYPos = null;
 
 locationData = {
   getHandler : function() {
-    var ele = docuemnt.querySelector("#nearestBranchHandler");
+    var ele = docuemnt.querySelector(".nearestBranchHandler");
     ele.addEventListener("click", function() {
       locationData.calculateNearestBranch(locationData.getUserPosition, locationData.coordinates);
     });
