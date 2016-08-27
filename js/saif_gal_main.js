@@ -1,35 +1,31 @@
 var currentYPos = null;
-//test area
+
 
 locationData = {
+  userCoordinates : null,
   getHandler : function() {
     var ele = document.querySelector(".nearestBranchHandler");
     ele.addEventListener("click", function() {
-
-      locationData.calculateNearestBranch(locationData.getUserPosition, locationData.coordinates);
-
+      locationData.getUserPosition();
     });
   },
   coordinates : [],
   getUserPosition : function () {
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(function (position){
-          return [position.coords.latitude,position.coords.latitude];
-      }, function () {
-        console.log("some problem occured");
-      }, {
-        enableHighAccuracy: true
-      });
+      navigator.geolocation.getCurrentPosition(this.successCallBack);
     }
   },
-  calculateNearestBranch : function (userLocationCallBack, coordinatesArray) {
-    var coordinates =  userLocationCallBack();
-    alert(coordinates);
+  successCallBack : function (position){
+    locationData.calculateNearestBranch(position, locationData.userCoordinates);
+  },
+  calculateNearestBranch : function (locationObject, coordinatesArray) {
+    this.userCoordinates = locationObject;   
+
   }
 };
 
 
-//end of test area
+
 var mainContent = {
 
     jsonData: contentData,
