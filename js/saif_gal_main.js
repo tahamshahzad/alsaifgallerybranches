@@ -1,7 +1,7 @@
 var currentYPos = null;
 
 
-locationData = {
+var locationData = {
   nearestBranch : null,
   userCoordinates : null,
   showNearBranch : function () {
