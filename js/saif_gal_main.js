@@ -17,8 +17,11 @@ var locationData = {
   coordinates : [],
   getUserPosition : function () {
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(this.successCallBack);
+      navigator.geolocation.getCurrentPosition(this.successCallBack, this.errorCallBack, {enableHighAccuracy: true});
     }
+  },
+  errorCallBack : function() {
+    alert("Sorry, no position available.");
   },
   successCallBack : function (position){
     locationData.calculateNearestBranch(position, locationData.coordinates);
